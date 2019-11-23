@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :data_loggers do
+    resources :series
+  end
   resources :users
-  match '/signup', to: 'users#new', via: 'get'
+  get '/signup', to: 'users#new'
 end

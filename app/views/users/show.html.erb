@@ -11,6 +11,15 @@
 </p>
 
 <p>
+<strong>Data Loggers</strong>
+<ul>
+  <% @user.data_loggers.each do |data_logger| %>
+    <li><%= link_to data_logger.name, data_logger %></li>
+  <% end %>
+</ul>
+</p>
+
+<p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

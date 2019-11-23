@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+<strong>Name:</strong>
+<%= @data_logger.name %>
+</p>
+
+<p>
+<strong>Columns:</strong>
+<ul>
+  <% @data_logger.series.each do |s| %>
+    <li>
+      <%= link_to(s.name, data_logger_series_path(@data_logger, s)) %>
+    </li>
+  <% end %>
+</ul>
+</p>
+
+<%= link_to 'Edit', edit_data_logger_path(@data_logger) %> |
+<%= link_to 'Back', data_loggers_path %>
