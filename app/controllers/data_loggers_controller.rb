@@ -1,5 +1,6 @@
 class DataLoggersController < ApplicationController
-  before_action :set_data_logger, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery :except => [:add_data]
+  before_action :set_data_logger, only: [:show, :edit, :update, :destroy, :add_data]
 
   # GET /data_loggers
   # GET /data_loggers.json
@@ -15,6 +16,7 @@ class DataLoggersController < ApplicationController
   # GET /data_loggers/new
   def new
     @data_logger = DataLogger.new
+    4.times { @data_logger.series.build }
   end
 
   # GET /data_loggers/1/edit
@@ -24,7 +26,7 @@ class DataLoggersController < ApplicationController
   # POST /data_loggers
   # POST /data_loggers.json
   def create
-    @data_logger = DataLogger.new(data_logger_params)
+    @data_logger = User.first.data_loggers.new(data_logger_params)
 
     respond_to do |format|
       if @data_logger.save
@@ -61,14 +63,29 @@ class DataLoggersController < ApplicationController
     end
   end
 
+  def add_data
+    add_data_params.to_h.each do |series, data|
+      @data_logger.series.find_by(name: series).datum.create(data)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_logger
-      @data_logger = DataLogger.find(params[:id])
+      @data_logger = DataLogger.find(params[:data_logger_id] || params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def data_logger_params
-      params.require(:data_logger).permit(:name)
+      params.require(:data_logger).permit(
+        :name,
+        { series_attributes: [:id, :name] }
+      )
+    end
+
+    def add_data_params
+      params.require(:series).permit(
+        @data_logger.series.map {|s| [[ s.name.to_sym, [ :x, :y ]]].to_h }
+      )
     end
 end

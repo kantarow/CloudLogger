@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_004756) do
+ActiveRecord::Schema.define(version: 2019_11_30_072939) do
 
   create_table "data", force: :cascade do |t|
     t.integer "series_id"
-    t.float "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "x"
+    t.float "y"
   end
 
   create_table "data_loggers", force: :cascade do |t|

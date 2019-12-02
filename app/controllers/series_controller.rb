@@ -2,8 +2,6 @@ class SeriesController < ApplicationController
   before_action :set_series, only: [:show, :edit, :update, :destroy]
   before_action :set_data_logger, only: [:show, :edit, :update, :destroy, :create]
 
-  # GET /series
-  # GET /series.json
   def index
     @series = Series.all
     @data_logger = DataLogger.find_by(id: params[:data_logger_id])

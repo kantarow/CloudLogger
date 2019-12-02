@@ -5,12 +5,17 @@
 <%= @data_logger.name %>
 </p>
 
+<%= line_chart @data_logger.series.map { |series|
+  series.to_chart
+} %>
+
 <p>
-<strong>Columns:</strong>
+<strong>Series:</strong>
 <ul>
   <% @data_logger.series.each do |s| %>
     <li>
       <%= link_to(s.name, data_logger_series_path(@data_logger, s)) %>
+      <input type="hidden" class="series" series_id="<%= s.id %>"></input>
     </li>
   <% end %>
 </ul>
