@@ -5,9 +5,18 @@
 <%= @data_logger.name %>
 </p>
 
+<input type="hidden" class="data_logger" data_logger_id="<%= @data_logger.id %>"/>
 <%= line_chart @data_logger.series.map { |series|
   series.to_chart
 } %>
+
+
+<div class="form">
+  <input type="text" id="operation-input"/>
+  <button id="operation-button" type="button">
+    transmit
+  </button>
+</div>
 
 <p>
 <strong>Series:</strong>

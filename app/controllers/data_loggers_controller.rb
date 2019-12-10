@@ -16,7 +16,7 @@ class DataLoggersController < ApplicationController
   # GET /data_loggers/new
   def new
     @data_logger = DataLogger.new
-    4.times { @data_logger.series.build }
+    @data_logger.series.build
   end
 
   # GET /data_loggers/1/edit
@@ -26,7 +26,7 @@ class DataLoggersController < ApplicationController
   # POST /data_loggers
   # POST /data_loggers.json
   def create
-    @data_logger = User.first.data_loggers.new(data_logger_params)
+    @data_logger = DataLogger.new(data_logger_params)
 
     respond_to do |format|
       if @data_logger.save
@@ -79,7 +79,7 @@ class DataLoggersController < ApplicationController
     def data_logger_params
       params.require(:data_logger).permit(
         :name,
-        { series_attributes: [:id, :name] }
+        { series_attributes: [:id, :name, :_destroy] }
       )
     end
 

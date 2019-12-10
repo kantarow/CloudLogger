@@ -1,4 +1,4 @@
-<%= form_for data_logger do |form| %>
+<%= form_for data_logger do |f| %>
   <% if data_logger.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(data_logger.errors.count, "error") %> prohibited this data_logger from being saved:</h2>
@@ -11,20 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= form.label :series %>
-    <%= form.fields_for :series do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    <% end %>
+  <%= f.label :series %>
+  <%= f.fields_for :series do |series| %>
+    <%= render 'series_fields', f: series %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association 'add series', f, :series %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= f.submit %>
 <% end %>
