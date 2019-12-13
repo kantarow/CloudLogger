@@ -1,0 +1,18 @@
+<ul class="top-navigation-bar">
+  <li class="top-navigation-item logo">
+    <%= link_to "CloudLogger", "#" %>
+  </li>
+
+  <% if user_signed_in? %>
+    <li class="top-navigation-item">
+      <%= link_to "MyPage", current_user %>
+    </li>
+    <li class="top-navigation-item">
+      <%= link_to "SignOut", destroy_user_session_path, method: :delete %>
+    </li>
+  <% else %>
+    <li class="top-navigation-item">
+      <%= link_to "SignIn", new_user_session_path %>
+    </li>
+  <% end %>
+</ul>

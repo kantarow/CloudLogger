@@ -1,11 +1,12 @@
 class DataLoggersController < ApplicationController
   protect_from_forgery :except => [:add_data]
   before_action :set_data_logger, only: [:show, :edit, :update, :destroy, :add_data]
+  before_action :authenticate_user!, only: [:show, :edit, :update, :destroy, :new, :create, :index]
 
   # GET /data_loggers
   # GET /data_loggers.json
   def index
-    @data_loggers = DataLogger.all
+    @data_loggers = current_user&.data_loggers
   end
 
   # GET /data_loggers/1
@@ -26,7 +27,7 @@ class DataLoggersController < ApplicationController
   # POST /data_loggers
   # POST /data_loggers.json
   def create
-    @data_logger = DataLogger.new(data_logger_params)
+    @data_logger = current_user&.data_loggers.new(data_logger_params)
 
     respond_to do |format|
       if @data_logger.save

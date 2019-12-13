@@ -10,6 +10,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render partial: "layouts/top_navigation" %>
+    <%= render partial: "layouts/side_menu" if user_signed_in? %>
+    <%= render "layouts/notification" %>
+    <div class="ground">
+      <div class="main-content">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

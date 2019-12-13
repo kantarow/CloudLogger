@@ -1,0 +1,15 @@
+<ul class="side-menu">
+  <li>
+    <%= link_to "DataLoggers", data_loggers_path, class: "side-menu-item" %>
+    <ul>
+      <% current_user.data_loggers.each do |data_logger| %>
+        <li>
+          <%= link_to data_logger.name, data_logger, class: "side-menu-item inner" %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "side-menu-item" %>
+  </li>
+</ul>

@@ -1,14 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-<strong>Name:</strong>
-<%= @data_logger.name %>
-</p>
+<h1><%= @data_logger.name %></h1>
 
 <input type="hidden" class="data_logger" data_logger_id="<%= @data_logger.id %>"/>
-<%= line_chart @data_logger.series.map { |series|
-  series.to_chart
-} %>
+
+<div class="chart">
+  <%= line_chart @data_logger.series.map(&:to_chart) %>
+</div>
 
 
 <div class="form">
@@ -17,18 +13,6 @@
     transmit
   </button>
 </div>
-
-<p>
-<strong>Series:</strong>
-<ul>
-  <% @data_logger.series.each do |s| %>
-    <li>
-      <%= link_to(s.name, data_logger_series_path(@data_logger, s)) %>
-      <input type="hidden" class="series" series_id="<%= s.id %>"></input>
-    </li>
-  <% end %>
-</ul>
-</p>
 
 <%= link_to 'Edit', edit_data_logger_path(@data_logger) %> |
 <%= link_to 'Back', data_loggers_path %>
