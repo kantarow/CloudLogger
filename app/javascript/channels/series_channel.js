@@ -2,8 +2,10 @@ import consumer from "./consumer"
 
 $(function() {
 	var chart = Chartkick.charts["chart-1"];
+	var series_id = $('.series').attr("series_id");
+	console.log(series_id);
 	$('.series').each(function(index, series) { 
-		consumer.subscriptions.create({ channel: "SensorChannel", series_id: series.getAttribute("series_id") }, {
+		consumer.subscriptions.create({ channel: "SeriesChannel", series_id: series_id }, {
 			connected() {
 				console.log("connected");
 			},

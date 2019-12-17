@@ -1,7 +1,7 @@
 <h1><%= @data_logger.name %></h1>
 <%= link_to 'Edit', edit_data_logger_path(@data_logger) %>
 
-<input type="hidden" class="data_logger" data_logger_id="<%= @data_logger.id %>"/>
+<input type="hidden" id="data_logger" data_logger_id="<%= @data_logger.id %>"/>
 
 <div class="chart">
   <%= line_chart @data_logger.series.map(&:to_chart) %>
@@ -10,6 +10,7 @@
 
 <div class="recent-panels-block">
   <% @data_logger.series.each do |series| %>
+    <input type="hidden" class="series" series_id="<%= series.id %>"/>
     <div class="recent-panel">
       <%= tag.div series.name, class: "series-name" %>
       <div class="recent-value" id="<%= "series-#{series.id}" %>">

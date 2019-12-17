@@ -5,7 +5,7 @@ class Series < ApplicationRecord
   validates :name, uniqueness: { scope: :data_logger_id } 
 
   def most_recent_data
-    self.datum.order(created_at: :desc).take || 0
+    self.datum.order(created_at: :desc).take&.y || 0
   end
 
   def to_chart

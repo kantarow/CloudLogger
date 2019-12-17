@@ -6,7 +6,7 @@ class Datum < ApplicationRecord
   end
 
   def bloadcast_datum
-    SensorChannel.broadcast_to(
+    SeriesChannel.broadcast_to(
       series,
       body: [ x_or_created_at, y ]
     )
