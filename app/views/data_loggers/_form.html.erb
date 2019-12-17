@@ -1,28 +1,30 @@
-<%= form_for data_logger do |f| %>
-  <% if data_logger.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(data_logger.errors.count, "error") %> prohibited this data_logger from being saved:</h2>
+<div class="form-block">
+  <%= form_for data_logger do |f| %>
+    <% if data_logger.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(data_logger.errors.count, "error") %> prohibited this data_logger from being saved:</h2>
 
-      <ul>
-        <% data_logger.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% data_logger.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
     </div>
+
+    <%= f.label :series %>
+    <%= f.fields_for :series do |series| %>
+      <%= render 'series_fields', f: series %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add series', f, :series %>
+    </div>
+
+    <%= f.submit %>
   <% end %>
-
-  <div class="form">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <%= f.label :series %>
-  <%= f.fields_for :series do |series| %>
-    <%= render 'series_fields', f: series %>
-  <% end %>
-  <div class="links">
-    <%= link_to_add_association 'add series', f, :series %>
-  </div>
-
-  <%= f.submit %>
-<% end %>
+</div>
