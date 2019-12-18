@@ -7,10 +7,10 @@ class DataLoggerChannel < ApplicationCable::Channel
   end
 
   def add_data(data)
-    p current_data_logger
+    now = DateTime.now
     data.each do |name, values|
       next if name == "action"
-      current_data_logger.series.find_by(name: name)&.datum.create(x: values[0], y: values[1])
+      current_data_logger.series.find_by(name: name)&.datum&.create(x: now, y: values[1].round(2))
     end
   end
 

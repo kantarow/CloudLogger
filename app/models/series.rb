@@ -11,7 +11,7 @@ class Series < ApplicationRecord
   def to_chart
     {
       name: self.name,
-      data: self.datum.map {|d| [d.x_or_created_at, d.y ] }
+      data: self.datum.order(:x).map {|d| [d.x_or_created_at, d.y ] }
     }
   end
 end
